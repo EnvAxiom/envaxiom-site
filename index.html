@@ -188,7 +188,7 @@
       <span class="roblox-text">Axiom's Roblox Profile</span>
     </a>
   </div>
-  <!-- Add picture at top right with smooth UI corner -->
+  <!-- Add picture at top right with smooth UI corner and switch song button under the song title -->
   <div id="song-info" style="
     position: absolute;
     top: 32px;
@@ -199,6 +199,7 @@
     box-shadow: 0 4px 16px #222;
     padding: 12px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     transition: box-shadow 0.3s;
     min-width: 220px;
@@ -213,7 +214,8 @@
       transition: transform 0.3s;
     ">
     <div id="song-title" style="
-      margin-left: 16px;
+      margin-top: 10px;
+      margin-bottom: 0;
       font-family: 'Press Start 2P', monospace;
       color: #39ff14;
       font-size: 1.1rem;
@@ -222,9 +224,27 @@
       max-width: 260px;
       word-break: break-word;
       white-space: normal;
+      text-align: center;
     ">
       Simar - Zap Zape
     </div>
+    <button id="switchSongBtn" style="
+      background:#39ff14;
+      border:none;
+      border-radius:8px;
+      padding:6px 14px;
+      cursor:pointer;
+      font-family:'Press Start 2P', monospace;
+      font-size:0.9rem;
+      color:#222;
+      margin-top:14px;
+      margin-left:0;
+      display: block;
+      margin-right: auto;
+      margin-left: auto;
+    ">
+      Switch Song
+    </button>
   </div>
   <!-- Custom audio player UI at bottom center -->
   <div style="
@@ -259,20 +279,6 @@
     <!-- Volume bar -->
     <input type="range" id="volumeBar" min="0" max="100" value="50" style="width:80px; margin-left:18px;">
     <span style="font-family:'Press Start 2P', monospace; color:#39ff14; font-size:0.9rem; margin-left:6px;" id="volumeLabel">50%</span>
-    <!-- Switch Song button in the middle bottom -->
-    <button id="switchSongBtn" style="
-      background:#39ff14;
-      border:none;
-      border-radius:8px;
-      padding:6px 14px;
-      cursor:pointer;
-      font-family:'Press Start 2P', monospace;
-      font-size:0.9rem;
-      color:#222;
-      margin-left:18px;
-    ">
-      Switch Song
-    </button>
   </div>
   <audio id="bg-music" src="Simar - Zap Zape.mp3" preload="auto" autoplay loop></audio>
   <script>
