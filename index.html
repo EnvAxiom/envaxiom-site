@@ -38,7 +38,7 @@
       letter-spacing: 2px;
       background: none;
     }
-    .discord-btn, .youtube-btn {
+    .discord-btn, .youtube-btn, .roblox-btn {
       margin-top: 2rem;
       display: flex;
       align-items: center;
@@ -91,6 +91,37 @@
       letter-spacing: 1px;
       text-shadow: 2px 2px 0 #222;
     }
+    .roblox-btn {
+      background: #232527;
+      margin-top: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      border-radius: 8px;
+      padding: 0.5rem 1.2rem;
+      cursor: pointer;
+      transition: background 0.2s;
+      box-shadow: 0 2px 8px #222;
+      z-index: 1;
+      text-decoration: none;
+    }
+    .roblox-btn:hover {
+      background: #393b3d;
+    }
+    .roblox-logo {
+      width: 32px;
+      height: 32px;
+      margin-right: 0.7rem;
+      vertical-align: middle;
+    }
+    .roblox-text {
+      color: #fff;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      text-shadow: 2px 2px 0 #222;
+    }
   </style>
 </head>
 <body>
@@ -113,6 +144,14 @@
         <polygon points="13,10 25,16 13,22" fill="#fff"/>
       </svg>
       <span class="youtube-text">Axiom's Youtube Channel</span>
+    </a>
+    <a class="roblox-btn" href="https://www.roblox.com/users/2046889032/profile" target="_blank" rel="noopener">
+      <svg class="roblox-logo" viewBox="0 0 32 32" fill="none">
+        <rect x="4" y="4" width="24" height="24" rx="6" fill="#232527"/>
+        <rect x="10" y="10" width="12" height="12" transform="rotate(15 16 16)" fill="#fff"/>
+        <rect x="14" y="14" width="4" height="4" transform="rotate(15 16 16)" fill="#232527"/>
+      </svg>
+      <span class="roblox-text">Axiom's Roblox Profile</span>
     </a>
   </div>
   <script>
