@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Axiom's Pixel Website</title>
+  <title>Axiom’s Website</title>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <style>
     body {
@@ -38,6 +38,36 @@
       letter-spacing: 2px;
       background: none;
     }
+    .discord-btn {
+      margin-top: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #5865F2;
+      border: none;
+      border-radius: 8px;
+      padding: 0.5rem 1.2rem;
+      cursor: pointer;
+      transition: background 0.2s;
+      box-shadow: 0 2px 8px #222;
+      z-index: 1;
+    }
+    .discord-btn:hover {
+      background: #4752C4;
+    }
+    .discord-logo {
+      width: 32px;
+      height: 32px;
+      margin-right: 0.7rem;
+      vertical-align: middle;
+    }
+    .discord-text {
+      color: #fff;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      text-shadow: 2px 2px 0 #222;
+    }
   </style>
 </head>
 <body>
@@ -46,6 +76,13 @@
     Hello welcome to my website,<br>
     I'm Axiom
   </div>
+  <a class="discord-btn" href="https://discord.gg/Jvq7Jv5QJN" target="_blank" rel="noopener">
+    <svg class="discord-logo" viewBox="0 0 32 32" fill="none">
+      <circle cx="16" cy="16" r="16" fill="#5865F2"/>
+      <path d="M22.5 11.5c-1.2-.5-2.5-.8-3.8-.8-.2.3-.4.7-.6 1-1.1-.2-2.2-.2-3.3 0-.2-.3-.4-.7-.6-1-1.3 0-2.6.3-3.8.8-2.1 3.2-2.7 6.3-2.4 9.4 1.4 1.1 2.9 1.9 4.5 2.3.4-.6.7-1.2.9-1.9-.5-.2-1-.5-1.4-.8.1-.1.2-.2.3-.3 2.7 1.2 5.6 1.2 8.3 0 .1.1.2.2.3.3-.4.3-.9.6-1.4.8.2.7.5 1.3.9 1.9 1.6-.4 3.1-1.2 4.5-2.3.3-3.1-.3-6.2-2.4-9.4zm-8.1 7.6c-.6 0-1-.5-1-.9s.4-.9 1-.9c.6 0 1 .4 1 .9s-.4.9-1 .9zm5.2 0c-.6 0-1-.5-1-.9s.4-.9 1-.9c.6 0 1 .4 1 .9s-.4.9-1 .9z" fill="#fff"/>
+    </svg>
+    <span class="discord-text">Join Discord</span>
+  </a>
   <script>
     const canvas = document.getElementById('star-canvas');
     const ctx = canvas.getContext('2d');
@@ -70,6 +107,7 @@
     }
 
     function animateStars() {
+      ctx.globalAlpha = 1;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       for (let star of stars) {
         ctx.beginPath();
@@ -77,12 +115,11 @@
         ctx.fillStyle = '#fff';
         ctx.globalAlpha = 0.8;
         ctx.fill();
-        ctx.globalAlpha = 1;
-
+      }
+      ctx.globalAlpha = 1;
+      for (let star of stars) {
         star.x += star.dx;
         star.y += star.dy;
-
-        // Wrap around edges
         if (star.x < 0) star.x = canvas.width;
         if (star.x > canvas.width) star.x = 0;
         if (star.y < 0) star.y = canvas.height;
