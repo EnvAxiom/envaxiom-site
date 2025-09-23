@@ -15,6 +15,10 @@
       justify-content: center;
       position: relative;
       overflow: hidden;
+      transition: background 0.4s;
+    }
+    body.light-mode {
+      background: #f7f7f7;
     }
     #star-canvas {
       position: absolute;
@@ -46,6 +50,10 @@
       pointer-events: auto;
       transition: color 0.5s;
     }
+    body.light-mode .top-title {
+      color: #222;
+      text-shadow: 4px 4px 0 #fff, 8px 8px 0 #bbb;
+    }
     .top-desc {
       font-family: 'Press Start 2P', monospace;
       color: #39ff14;
@@ -54,6 +62,11 @@
       letter-spacing: 2px;
       margin-bottom: 2.5rem;
       pointer-events: auto;
+      transition: color 0.4s;
+    }
+    body.light-mode .top-desc {
+      color: #0a7d2c;
+      text-shadow: 2px 2px 0 #fff, 4px 4px 0 #bbb;
     }
     .center-desc {
       position: absolute;
@@ -68,8 +81,13 @@
       letter-spacing: 2px;
       z-index: 2;
       background: none;
+      transition: color 0.4s;
     }
-    .discord-btn, .youtube-btn, .roblox-btn {
+    body.light-mode .center-desc {
+      color: #0a7d2c;
+      text-shadow: 2px 2px 0 #fff, 4px 4px 0 #bbb;
+    }
+    .discord-btn, .youtube-btn, .roblox-btn, .tiktok-btn {
       margin-top: 2rem;
       display: flex;
       align-items: center;
@@ -153,6 +171,58 @@
       letter-spacing: 1px;
       text-shadow: 2px 2px 0 #222;
     }
+    .tiktok-btn {
+      background: #111;
+      margin-top: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      border-radius: 8px;
+      padding: 0.5rem 1.2rem;
+      cursor: pointer;
+      transition: background 0.2s;
+      box-shadow: 0 2px 8px #222;
+      z-index: 1;
+      text-decoration: none;
+    }
+    .tiktok-btn:hover {
+      background: #222;
+    }
+    .tiktok-logo {
+      width: 32px;
+      height: 32px;
+      margin-right: 0.7rem;
+      vertical-align: middle;
+    }
+    .tiktok-text {
+      color: #fff;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      text-shadow: 2px 2px 0 #222;
+    }
+    .mode-toggle-btn {
+      position: absolute;
+      top: 24px;
+      left: 24px;
+      z-index: 20;
+      background: #222;
+      color: #39ff14;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 18px;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 2px 8px #222;
+      transition: background 0.3s, color 0.3s;
+    }
+    body.light-mode .mode-toggle-btn {
+      background: #eaeaea;
+      color: #0a7d2c;
+      box-shadow: 0 2px 8px #bbb;
+    }
     .lyrics-box {
       position: absolute;
       left: 50%;
@@ -181,6 +251,7 @@
   <div class="center-desc">
     16 ꟾ Sunni ꟾ Kurdish
   </div>
+  <button class="mode-toggle-btn" id="modeToggleBtn">🌙 Dark Mode</button>
   <div style="position: absolute; top: 60%; left: 50%; transform: translate(-50%, 0); display: flex; flex-direction: column; align-items: center; z-index: 1;">
     <a class="discord-btn" href="https://discord.gg/Jvq7Jv5QJN" target="_blank" rel="noopener">
       <svg class="discord-logo" viewBox="0 0 32 32" fill="none">
@@ -203,6 +274,14 @@
         <rect x="14" y="14" width="4" height="4" transform="rotate(15 16 16)" fill="#232527"/>
       </svg>
       <span class="roblox-text">Axiom's Roblox Profile</span>
+    </a>
+    <a class="tiktok-btn" href="https://www.tiktok.com/@dilsherjamalabdalla" target="_blank" rel="noopener">
+      <svg class="tiktok-logo" viewBox="0 0 32 32" fill="none">
+        <circle cx="16" cy="16" r="16" fill="#111"/>
+        <path d="M21 10v7.5a3.5 3.5 0 1 1-3.5-3.5h1.5V12a5 5 0 1 0 5 5V10h-3z" fill="#fff"/>
+        <path d="M21 10c0 2.2 1.8 4 4 4v2c-3.3 0-6-2.7-6-6h2z" fill="#39ff14"/>
+      </svg>
+      <span class="tiktok-text">Axiom's TikTok</span>
     </a>
   </div>
   <!-- Song info and switcher -->
@@ -263,8 +342,6 @@
       Switch Song
     </button>
   </div>
-  <!-- Lyrics box -->
-  <div id="lyrics" class="lyrics-box"></div>
   <!-- Custom audio player UI at bottom center -->
   <div style="
     position: absolute;
@@ -306,14 +383,12 @@
       {
         src: "Simar - Zap Zape.mp3",
         title: "Simar - Zap Zape",
-        img: "zap zape picture.avif",
-        lyricsFile: "zape lyrics.txt"
+        img: "zap zape picture.avif"
       },
       {
         src: "NUMBER - TWERKNATION28.mp3",
         title: "NUMBER - TWERKNATION28",
-        img: "hq720.avif",
-        lyricsFile: "number lyrics.txt"
+        img: "hq720.avif"
       }
     ];
     let currentSong = 0;
@@ -343,7 +418,6 @@
     const switchSongBtn = document.getElementById('switchSongBtn');
     const songTitle = document.getElementById('song-title');
     const songImg = document.getElementById('song-img');
-    const lyricsBox = document.getElementById('lyrics');
 
     function formatTime(sec) {
       sec = Math.floor(sec);
@@ -389,26 +463,13 @@
       volumeLabel.textContent = volumeBar.value + '%';
     });
 
-    // Load lyrics from txt file
-    function loadLyrics(file) {
-      fetch(file)
-        .then(response => response.text())
-        .then(text => {
-          lyricsBox.textContent = text;
-        })
-        .catch(() => {
-          lyricsBox.textContent = "Lyrics not found.";
-        });
-    }
-
-    // Update song UI and lyrics
+    // Update song UI
     function updateSongUI() {
       audio.src = songs[currentSong].src;
       songTitle.textContent = songs[currentSong].title;
       songImg.src = songs[currentSong].img;
       audio.currentTime = 0;
       audio.play();
-      loadLyrics(songs[currentSong].lyricsFile);
     }
 
     switchSongBtn.addEventListener('click', () => {
@@ -461,6 +522,15 @@
       requestAnimationFrame(animateStars);
     }
     animateStars();
+
+    // Dark/Light mode toggle
+    const modeToggleBtn = document.getElementById('modeToggleBtn');
+    let isLightMode = false;
+    modeToggleBtn.addEventListener('click', () => {
+      isLightMode = !isLightMode;
+      document.body.classList.toggle('light-mode', isLightMode);
+      modeToggleBtn.textContent = isLightMode ? "🌞 Light Mode" : "🌙 Dark Mode";
+    });
 
     // Fade Axiom/Dilsher title black/white animation
     const axiomTitle = document.getElementById('axiomTitle');
