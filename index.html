@@ -25,6 +25,34 @@
       z-index: 0;
       display: block;
     }
+    .top-info {
+      position: absolute;
+      top: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      z-index: 2;
+      width: 100vw;
+      pointer-events: none;
+    }
+    .top-title {
+      font-family: 'Press Start 2P', monospace;
+      color: #39ff14;
+      font-size: 2rem;
+      text-shadow: 4px 4px 0 #222, 8px 8px 0 #111;
+      letter-spacing: 2px;
+      margin-bottom: 1rem;
+      pointer-events: auto;
+    }
+    .top-desc {
+      font-family: 'Press Start 2P', monospace;
+      color: #39ff14;
+      font-size: 1.2rem;
+      text-shadow: 2px 2px 0 #222, 4px 4px 0 #111;
+      letter-spacing: 2px;
+      margin-bottom: 2.5rem;
+      pointer-events: auto;
+    }
     .pixel-text {
       position: relative;
       z-index: 1;
@@ -37,6 +65,7 @@
         8px 8px 0 #111;
       letter-spacing: 2px;
       background: none;
+      margin-top: 180px;
     }
     .discord-btn, .youtube-btn, .roblox-btn {
       margin-top: 2rem;
@@ -122,11 +151,28 @@
       letter-spacing: 1px;
       text-shadow: 2px 2px 0 #222;
     }
+    .audio-player {
+      position: absolute;
+      top: 16px;
+      right: 32px;
+      z-index: 3;
+      background: rgba(0,0,0,0.7);
+      border-radius: 8px;
+      padding: 8px;
+      box-shadow: 0 2px 8px #222;
+    }
+    .audio-player audio {
+      width: 220px;
+      outline: none;
+    }
   </style>
 </head>
 <body>
-  <audio id="bg-music" src="Simar - Zap Zape.mp3" autoplay loop hidden></audio>
   <canvas id="star-canvas"></canvas>
+  <div class="top-info">
+    <div class="top-title">Axiom/Dilsher</div>
+    <div class="top-desc">16 ꟾ Sunni ꟾ Kurdish</div>
+  </div>
   <div class="pixel-text">
     Hello welcome to my website,<br>
     I'm Axiom
@@ -154,6 +200,9 @@
       </svg>
       <span class="roblox-text">Axiom's Roblox Profile</span>
     </a>
+  </div>
+  <div class="audio-player">
+    <audio src="Simar - Zap Zape.mp3" controls autoplay loop></audio>
   </div>
   <script>
     const canvas = document.getElementById('star-canvas');
