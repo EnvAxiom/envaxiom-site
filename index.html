@@ -252,6 +252,9 @@
     <div style="font-family:'Press Start 2P', monospace; color:#fff; font-size:0.9rem; margin-left:12px;">
       <span id="currentTime">0:00</span> / <span id="duration">0:00</span>
     </div>
+    <!-- Volume bar -->
+    <input type="range" id="volumeBar" min="0" max="100" value="50" style="width:80px; margin-left:18px;">
+    <span style="font-family:'Press Start 2P', monospace; color:#39ff14; font-size:0.9rem; margin-left:6px;" id="volumeLabel">50%</span>
   </div>
   <audio id="bg-music" src="Simar - Zap Zape.mp3" preload="auto" autoplay loop></audio>
   <script>
@@ -275,6 +278,8 @@
     const seekbar = document.getElementById('seekbar');
     const currentTimeSpan = document.getElementById('currentTime');
     const durationSpan = document.getElementById('duration');
+    const volumeBar = document.getElementById('volumeBar');
+    const volumeLabel = document.getElementById('volumeLabel');
 
     function formatTime(sec) {
       sec = Math.floor(sec);
@@ -312,6 +317,12 @@
     audio.addEventListener('pause', () => {
       playIcon.style.display = '';
       pauseIcon.style.display = 'none';
+    });
+
+    // Volume bar logic
+    volumeBar.addEventListener('input', () => {
+      audio.volume = volumeBar.value / 100;
+      volumeLabel.textContent = volumeBar.value + '%';
     });
 
     // Star background
