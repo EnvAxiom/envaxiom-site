@@ -20,6 +20,12 @@
     body.light-mode {
       background: #f7f7f7;
     }
+    body.light-mode #star-canvas {
+      /* Show dark dots instead of white stars */
+    }
+    body.light-mode .star-dot {
+      background: #222 !important;
+    }
     #star-canvas {
       position: absolute;
       top: 0;
@@ -503,10 +509,11 @@
     function animateStars() {
       ctx.globalAlpha = 1;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+      let isLight = document.body.classList.contains('light-mode');
       for (let star of stars) {
         ctx.beginPath();
         ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
-        ctx.fillStyle = '#fff';
+        ctx.fillStyle = isLight ? '#222' : '#fff'; // dark dots for light mode
         ctx.globalAlpha = 0.8;
         ctx.fill();
       }
