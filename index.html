@@ -247,6 +247,98 @@
       text-align: center;
       min-height: 40px;
     }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9rem;
+      }
+      .top-info {
+        top: 16px;
+        width: 100vw;
+      }
+      .top-title {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+      }
+      #discordTag {
+        font-size: 0.9rem;
+        margin-top: 6px;
+      }
+      .center-desc {
+        font-size: 1.1rem;
+        padding: 0 8px;
+      }
+      .center-desc > div {
+        margin-top: 18px !important;
+        gap: 8px !important;
+      }
+      .discord-btn, .youtube-btn, .roblox-btn, .tiktok-btn {
+        font-size: 0.8rem;
+        padding: 0.4rem 0.7rem;
+        margin-top: 0.7rem;
+        min-width: 180px;
+      }
+      .discord-logo, .youtube-logo, .roblox-logo, .tiktok-logo {
+        width: 24px;
+        height: 24px;
+        margin-right: 0.5rem;
+      }
+      #song-info {
+        top: auto;
+        bottom: 110px;
+        right: 50%;
+        left: 50%;
+        transform: translateX(-50%);
+        min-width: 0;
+        width: 90vw;
+        padding: 8px;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        box-sizing: border-box;
+      }
+      #song-img {
+        width: 60px !important;
+        height: 60px !important;
+        margin-right: 10px;
+      }
+      #song-title {
+        font-size: 0.9rem !important;
+        max-width: 120px !important;
+        margin-top: 0 !important;
+      }
+      #switchSongBtn {
+        font-size: 0.8rem !important;
+        padding: 4px 10px !important;
+        margin-top: 0 !important;
+        margin-left: 10px !important;
+      }
+      .mode-toggle-btn {
+        top: 8px;
+        left: 8px;
+        font-size: 0.8rem;
+        padding: 6px 12px;
+      }
+      .lyrics-box {
+        font-size: 0.8rem;
+        padding: 8px 10px;
+        bottom: 80px;
+      }
+      /* Audio player */
+      .audio-player-ui, div[style*="bottom: 32px"] {
+        bottom: 16px !important;
+        min-width: 0 !important;
+        width: 95vw !important;
+        padding: 10px 8px !important;
+        gap: 8px !important;
+        font-size: 0.8rem !important;
+      }
+      #seekbar, #volumeBar {
+        width: 80px !important;
+      }
+      #currentTime, #duration, #volumeLabel {
+        font-size: 0.8rem !important;
+      }
+    }
   </style>
 </head>
 <body>
