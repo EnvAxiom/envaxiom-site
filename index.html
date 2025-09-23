@@ -24,6 +24,7 @@
       height: 100vh;
       z-index: 0;
       display: block;
+      pointer-events: none;
     }
     .top-info {
       position: absolute;
@@ -152,8 +153,23 @@
       letter-spacing: 1px;
       text-shadow: 2px 2px 0 #222;
     }
-    .audio-player {
-      display: none;
+    .lyrics-box {
+      position: absolute;
+      left: 50%;
+      bottom: 120px;
+      transform: translateX(-50%);
+      background: rgba(20,20,20,0.85);
+      color: #fff;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 1rem;
+      padding: 16px 24px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px #222;
+      white-space: pre-line;
+      z-index: 10;
+      max-width: 80vw;
+      text-align: center;
+      min-height: 40px;
     }
   </style>
 </head>
@@ -189,7 +205,7 @@
       <span class="roblox-text">Axiom's Roblox Profile</span>
     </a>
   </div>
-  <!-- Add picture at top right with smooth UI corner and switch song button under the song title -->
+  <!-- Song info and switcher -->
   <div id="song-info" style="
     position: absolute;
     top: 32px;
@@ -247,6 +263,8 @@
       Switch Song
     </button>
   </div>
+  <!-- Lyrics box -->
+  <div id="lyrics" class="lyrics-box"></div>
   <!-- Custom audio player UI at bottom center -->
   <div style="
     position: absolute;
@@ -288,12 +306,14 @@
       {
         src: "Simar - Zap Zape.mp3",
         title: "Simar - Zap Zape",
-        img: "zap zape picture.avif"
+        img: "zap zape picture.avif",
+        lyricsFile: "zape lyrics.txt"
       },
       {
         src: "NUMBER - TWERKNATION28.mp3",
         title: "NUMBER - TWERKNATION28",
-        img: "hq720.avif"
+        img: "hq720.avif",
+        lyricsFile: "number lyrics.txt"
       }
     ];
     let currentSong = 0;
@@ -323,6 +343,7 @@
     const switchSongBtn = document.getElementById('switchSongBtn');
     const songTitle = document.getElementById('song-title');
     const songImg = document.getElementById('song-img');
+    const lyricsBox = document.getElementById('lyrics');
 
     function formatTime(sec) {
       sec = Math.floor(sec);
@@ -368,15 +389,35 @@
       volumeLabel.textContent = volumeBar.value + '%';
     });
 
-    // Song switcher logic
-    switchSongBtn.addEventListener('click', () => {
-      currentSong = (currentSong + 1) % songs.length;
+    // Load lyrics from txt file
+    function loadLyrics(file) {
+      fetch(file)
+        .then(response => response.text())
+        .then(text => {
+          lyricsBox.textContent = text;
+        })
+        .catch(() => {
+          lyricsBox.textContent = "Lyrics not found.";
+        });
+    }
+
+    // Update song UI and lyrics
+    function updateSongUI() {
       audio.src = songs[currentSong].src;
       songTitle.textContent = songs[currentSong].title;
       songImg.src = songs[currentSong].img;
       audio.currentTime = 0;
       audio.play();
+      loadLyrics(songs[currentSong].lyricsFile);
+    }
+
+    switchSongBtn.addEventListener('click', () => {
+      currentSong = (currentSong + 1) % songs.length;
+      updateSongUI();
     });
+
+    // On page load
+    window.addEventListener('DOMContentLoaded', updateSongUI);
 
     // Star background
     const canvas = document.getElementById('star-canvas');
