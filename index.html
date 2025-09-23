@@ -37,12 +37,13 @@
     }
     .top-title {
       font-family: 'Press Start 2P', monospace;
-      color: #39ff14;
+      color: #fff;
       font-size: 2rem;
       text-shadow: 4px 4px 0 #222, 8px 8px 0 #111;
       letter-spacing: 2px;
       margin-bottom: 1rem;
       pointer-events: auto;
+      transition: color 0.5s;
     }
     .top-desc {
       font-family: 'Press Start 2P', monospace;
@@ -159,7 +160,7 @@
 <body>
   <canvas id="star-canvas"></canvas>
   <div class="top-info">
-    <div class="top-title">Axiom/Dilsher</div>
+    <div class="top-title" id="axiomTitle">Axiom/Dilsher</div>
   </div>
   <div class="center-desc">
     16 ꟾ Sunni ꟾ Kurdish
@@ -419,6 +420,15 @@
       requestAnimationFrame(animateStars);
     }
     animateStars();
+
+    // Fade Axiom/Dilsher title black/white animation
+    const axiomTitle = document.getElementById('axiomTitle');
+    let fadeColors = ['#fff', '#000', '#fff', '#000', '#fff'];
+    let fadeIndex = 0;
+    setInterval(() => {
+      axiomTitle.style.color = fadeColors[fadeIndex];
+      fadeIndex = (fadeIndex + 1) % fadeColors.length;
+    }, 700);
   </script>
 </body>
 </html>
