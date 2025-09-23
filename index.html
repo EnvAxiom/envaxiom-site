@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Axiom’s Website</title>
+  <title>Axiom's Pixel Website</title>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <style>
     body {
@@ -13,234 +13,23 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      position: relative;
-      overflow: hidden;
     }
-    #star-canvas {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 0;
-      display: block;
-    }
-    .top-info {
-      position: absolute;
-      top: 32px;
-      left: 50%;
-      transform: translateX(-50%);
-      text-align: center;
-      z-index: 2;
-      width: 100vw;
-      pointer-events: none;
-    }
-    .top-title {
+    .pixel-text {
       font-family: 'Press Start 2P', monospace;
       color: #39ff14;
       font-size: 2rem;
-      text-shadow: 4px 4px 0 #222, 8px 8px 0 #111;
-      letter-spacing: 2px;
-      margin-bottom: 1rem;
-      pointer-events: auto;
-    }
-    .top-desc {
-      font-family: 'Press Start 2P', monospace;
-      color: #39ff14;
-      font-size: 1.2rem;
-      text-shadow: 2px 2px 0 #222, 4px 4px 0 #111;
-      letter-spacing: 2px;
-      margin-bottom: 2.5rem;
-      pointer-events: auto;
-    }
-    .center-desc {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-family: 'Press Start 2P', monospace;
-      color: #39ff14;
-      font-size: 1.5rem;
       text-align: center;
-      text-shadow: 2px 2px 0 #222, 4px 4px 0 #111;
+      text-shadow:
+        4px 4px 0 #222,
+        8px 8px 0 #111;
       letter-spacing: 2px;
-      z-index: 2;
-      background: none;
-    }
-    .discord-btn, .youtube-btn, .roblox-btn {
-      margin-top: 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: none;
-      border-radius: 8px;
-      padding: 0.5rem 1.2rem;
-      cursor: pointer;
-      transition: background 0.2s;
-      box-shadow: 0 2px 8px #222;
-      z-index: 1;
-      text-decoration: none;
-    }
-    .discord-btn {
-      background: #5865F2;
-    }
-    .discord-btn:hover {
-      background: #4752C4;
-    }
-    .discord-logo {
-      width: 32px;
-      height: 32px;
-      margin-right: 0.7rem;
-      vertical-align: middle;
-    }
-    .discord-text {
-      color: #fff;
-      font-family: 'Press Start 2P', monospace;
-      font-size: 1rem;
-      letter-spacing: 1px;
-      text-shadow: 2px 2px 0 #222;
-    }
-    .youtube-btn {
-      background: #FF0000;
-      margin-top: 1rem;
-    }
-    .youtube-btn:hover {
-      background: #CC0000;
-    }
-    .youtube-logo {
-      width: 32px;
-      height: 32px;
-      margin-right: 0.7rem;
-      vertical-align: middle;
-    }
-    .youtube-text {
-      color: #fff;
-      font-family: 'Press Start 2P', monospace;
-      font-size: 1rem;
-      letter-spacing: 1px;
-      text-shadow: 2px 2px 0 #222;
-    }
-    .roblox-btn {
-      background: #232527;
-      margin-top: 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: none;
-      border-radius: 8px;
-      padding: 0.5rem 1.2rem;
-      cursor: pointer;
-      transition: background 0.2s;
-      box-shadow: 0 2px 8px #222;
-      z-index: 1;
-      text-decoration: none;
-    }
-    .roblox-btn:hover {
-      background: #393b3d;
-    }
-    .roblox-logo {
-      width: 32px;
-      height: 32px;
-      margin-right: 0.7rem;
-      vertical-align: middle;
-    }
-    .roblox-text {
-      color: #fff;
-      font-family: 'Press Start 2P', monospace;
-      font-size: 1rem;
-      letter-spacing: 1px;
-      text-shadow: 2px 2px 0 #222;
-    }
-    .audio-player {
-      display: none;
     }
   </style>
 </head>
 <body>
-  <canvas id="star-canvas"></canvas>
-  <div class="top-info">
-    <div class="top-title">Axiom/Dilsher</div>
+  <div class="pixel-text"></div>
+    Hello welcome to my website,<br>
+    I'm Axiom
   </div>
-  <div class="center-desc">
-    16 ꟾ Sunni ꟾ Kurdish
-  </div>
-  <div style="position: absolute; top: 60%; left: 50%; transform: translate(-50%, 0); display: flex; flex-direction: column; align-items: center; z-index: 1;">
-    <a class="discord-btn" href="https://discord.gg/Jvq7Jv5QJN" target="_blank" rel="noopener">
-      <svg class="discord-logo" viewBox="0 0 32 32" fill="none">
-        <circle cx="16" cy="16" r="16" fill="#5865F2"/>
-        <path d="M22.5 11.5c-1.2-.5-2.5-.8-3.8-.8-.2.3-.4.7-.6 1-1.1-.2-2.2-.2-3.3 0-.2-.3-.4-.7-.6-1-1.3 0-2.6.3-3.8.8-2.1 3.2-2.7 6.3-2.4 9.4 1.4 1.1 2.9 1.9 4.5 2.3.4-.6.7-1.2.9-1.9-.5-.2-1-.5-1.4-.8.1-.1.2-.2.3-.3 2.7 1.2 5.6 1.2 8.3 0 .1.1.2.2.3.3-.4.3-.9.6-1.4.8.2.7.5 1.3.9 1.9 1.6-.4 3.1-1.2 4.5-2.3.3-3.1-.3-6.2-2.4-9.4zm-8.1 7.6c-.6 0-1-.5-1-.9s.4-.9 1-.9c.6 0 1 .4 1 .9s-.4.9-1 .9zm5.2 0c-.6 0-1-.5-1-.9s.4-.9 1-.9c.6 0 1 .4 1 .9s-.4.9-1 .9z" fill="#fff"/>
-      </svg>
-      <span class="discord-text">Axiom's Discord Server</span>
-    </a>
-    <a class="youtube-btn" href="https://www.youtube.com/@envaxiom" target="_blank" rel="noopener">
-      <svg class="youtube-logo" viewBox="0 0 32 32" fill="none">
-        <rect x="0" y="0" width="32" height="32" rx="8" fill="#FF0000"/>
-        <polygon points="13,10 25,16 13,22" fill="#fff"/>
-      </svg>
-      <span class="youtube-text">Axiom's Youtube Channel</span>
-    </a>
-    <a class="roblox-btn" href="https://www.roblox.com/users/2046889032/profile" target="_blank" rel="noopener">
-      <svg class="roblox-logo" viewBox="0 0 32 32" fill="none">
-        <rect x="4" y="4" width="24" height="24" rx="6" fill="#232527"/>
-        <rect x="10" y="10" width="12" height="12" transform="rotate(15 16 16)" fill="#fff"/>
-        <rect x="14" y="14" width="4" height="4" transform="rotate(15 16 16)" fill="#232527"/>
-      </svg>
-      <span class="roblox-text">Axiom's Roblox Profile</span>
-    </a>
-  </div>
-  <audio id="bg-music" src="Simar - Zap Zape.mp3" autoplay loop></audio>
-  <script>
-    // Attempt to play music on page load (some browsers require user interaction)
-    window.addEventListener('DOMContentLoaded', function() {
-      const audio = document.getElementById('bg-music');
-      audio.volume = 0.5;
-      audio.play().catch(() => {});
-    });
-
-    const canvas = document.getElementById('star-canvas');
-    const ctx = canvas.getContext('2d');
-
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-
-    const STAR_COUNT = 100;
-    const stars = [];
-    for (let i = 0; i < STAR_COUNT; i++) {
-      stars.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        r: Math.random() * 2 + 1,
-        dx: (Math.random() - 0.5) * 0.5,
-        dy: (Math.random() - 0.5) * 0.5
-      });
-    }
-
-    function animateStars() {
-      ctx.globalAlpha = 1;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (let star of stars) {
-        ctx.beginPath();
-        ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
-        ctx.fillStyle = '#fff';
-        ctx.globalAlpha = 0.8;
-        ctx.fill();
-      }
-      ctx.globalAlpha = 1;
-      for (let star of stars) {
-        star.x += star.dx;
-        star.y += star.dy;
-        if (star.x < 0) star.x = canvas.width;
-        if (star.x > canvas.width) star.x = 0;
-        if (star.y < 0) star.y = canvas.height;
-        if (star.y > canvas.height) star.y = 0;
-      }
-      requestAnimationFrame(animateStars);
-    }
-    animateStars();
-  </script>
 </body>
 </html>
