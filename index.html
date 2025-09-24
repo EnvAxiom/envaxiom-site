@@ -21,7 +21,6 @@
       background: #f7f7f7;
     }
     body.light-mode #star-canvas {
-      /* Show dark dots instead of white stars */
     }
     body.light-mode .star-dot {
       background: #222 !important;
@@ -393,13 +392,6 @@
     </div>
   </div>
   <button class="mode-toggle-btn" id="modeToggleBtn">🌙 Dark Mode</button>
-  <!-- REMOVE THIS DUPLICATE LINKS BLOCK BELOW -->
-  <!--
-  <div style="position: absolute; top: 60%; left: 50%; transform: translate(-50%, 0); display: flex; flex-direction: column; align-items: center; z-index: 1;">
-    ...all your links...
-  </div>
-  -->
-  <!-- Song info and switcher -->
   <div id="song-info" style="
     position: absolute;
     top: 32px;
@@ -457,7 +449,6 @@
       Switch Song
     </button>
   </div>
-  <!-- Custom audio player UI at bottom center -->
   <div style="
     position: absolute;
     bottom: 32px;
@@ -487,13 +478,11 @@
     <div style="font-family:'Press Start 2P', monospace; color:#fff; font-size:0.9rem; margin-left:12px;">
       <span id="currentTime">0:00</span> / <span id="duration">0:00</span>
     </div>
-    <!-- Volume bar -->
     <input type="range" id="volumeBar" min="0" max="100" value="50" style="width:80px; margin-left:18px;">
     <span style="font-family:'Press Start 2P', monospace; color:#39ff14; font-size:0.9rem; margin-left:6px;" id="volumeLabel">50%</span>
   </div>
   <audio id="bg-music" src="Simar - Zap Zape.mp3" preload="auto" autoplay loop></audio>
   <script>
-    // Song data
     const songs = [
       {
         src: "Simar - Zap Zape.mp3",
@@ -513,7 +502,6 @@
     ];
     let currentSong = 0;
 
-    // Audio autoplay logic
     const audio = document.getElementById('bg-music');
     audio.volume = 0.5;
     function tryPlay() {
@@ -526,7 +514,6 @@
     }
     window.addEventListener('DOMContentLoaded', tryPlay);
 
-    // Custom audio UI logic
     const playPauseBtn = document.getElementById('playPauseBtn');
     const playIcon = document.getElementById('playIcon');
     const pauseIcon = document.getElementById('pauseIcon');
@@ -577,13 +564,11 @@
       pauseIcon.style.display = 'none';
     });
 
-    // Volume bar logic
     volumeBar.addEventListener('input', () => {
       audio.volume = volumeBar.value / 100;
       volumeLabel.textContent = volumeBar.value + '%';
     });
 
-    // Update song UI
     function updateSongUI() {
       audio.src = songs[currentSong].src;
       songTitle.textContent = songs[currentSong].title;
@@ -597,10 +582,8 @@
       updateSongUI();
     });
 
-    // On page load
     window.addEventListener('DOMContentLoaded', updateSongUI);
 
-    // Star background
     const canvas = document.getElementById('star-canvas');
     const ctx = canvas.getContext('2d');
     function resizeCanvas() {
@@ -627,7 +610,7 @@
       for (let star of stars) {
         ctx.beginPath();
         ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
-        ctx.fillStyle = isLight ? '#222' : '#fff'; // dark dots for light mode
+        ctx.fillStyle = isLight ? '#222' : '#fff';
         ctx.globalAlpha = 0.8;
         ctx.fill();
       }
@@ -644,7 +627,6 @@
     }
     animateStars();
 
-    // Dark/Light mode toggle
     const modeToggleBtn = document.getElementById('modeToggleBtn');
     let isLightMode = false;
     modeToggleBtn.addEventListener('click', () => {
@@ -653,7 +635,6 @@
       modeToggleBtn.textContent = isLightMode ? "🌞 Light Mode" : "🌙 Dark Mode";
     });
 
-    // Fade Axiom/Dilsher title black/white animation
     const axiomTitle = document.getElementById('axiomTitle');
     let fadeColors = ['#fff', '#000', '#fff', '#000', '#fff'];
     let fadeIndex = 0;
