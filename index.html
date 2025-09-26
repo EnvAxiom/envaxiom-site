@@ -459,6 +459,122 @@
     .comment-item.admin-mode .comment-delete:hover {
       background: #ff6666;
     }
+    .announcement {
+      position: absolute;
+      top: 120px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 12;
+      background: rgba(20, 20, 20, 0.9);
+      border: 2px solid #39ff14;
+      border-radius: 12px;
+      padding: 16px 24px;
+      max-width: 80vw;
+      text-align: center;
+      box-shadow: 0 4px 16px #222;
+      display: none;
+    }
+    body.light-mode .announcement {
+      background: rgba(234, 234, 234, 0.9);
+      border-color: #0a7d2c;
+      box-shadow: 0 4px 16px #bbb;
+    }
+    .announcement-title {
+      font-family: 'Press Start 2P', monospace;
+      color: #39ff14;
+      font-size: 1rem;
+      margin-bottom: 8px;
+      text-shadow: 2px 2px 0 #222;
+    }
+    body.light-mode .announcement-title {
+      color: #0a7d2c;
+      text-shadow: 2px 2px 0 #fff;
+    }
+    .announcement-text {
+      font-family: 'Press Start 2P', monospace;
+      color: #fff;
+      font-size: 0.8rem;
+      line-height: 1.4;
+      word-wrap: break-word;
+    }
+    body.light-mode .announcement-text {
+      color: #222;
+    }
+    .announcement-close {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: #ff4444;
+      border: none;
+      border-radius: 3px;
+      width: 20px;
+      height: 20px;
+      color: #fff;
+      font-size: 0.6rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .announcement-close:hover {
+      background: #ff6666;
+    }
+    .admin-announcement-form {
+      display: none;
+      margin-top: 12px;
+      padding: 12px;
+      background: rgba(40, 40, 40, 0.8);
+      border-radius: 8px;
+      border: 1px solid #39ff14;
+    }
+    body.light-mode .admin-announcement-form {
+      background: rgba(200, 200, 200, 0.8);
+      border-color: #0a7d2c;
+    }
+    .admin-announcement-form input,
+    .admin-announcement-form textarea {
+      width: 100%;
+      background: rgba(60, 60, 60, 0.8);
+      border: 2px solid #39ff14;
+      border-radius: 6px;
+      padding: 6px 8px;
+      color: #fff;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.6rem;
+      margin-bottom: 8px;
+      outline: none;
+    }
+    body.light-mode .admin-announcement-form input,
+    body.light-mode .admin-announcement-form textarea {
+      background: rgba(180, 180, 180, 0.8);
+      border-color: #0a7d2c;
+      color: #222;
+    }
+    .admin-announcement-form textarea {
+      height: 60px;
+      resize: vertical;
+    }
+    .admin-announcement-form button {
+      background: #39ff14;
+      border: none;
+      border-radius: 6px;
+      padding: 6px 12px;
+      color: #222;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.6rem;
+      cursor: pointer;
+      margin-right: 6px;
+    }
+    body.light-mode .admin-announcement-form button {
+      background: #0a7d2c;
+      color: #fff;
+    }
+    .admin-announcement-form button:hover {
+      background: #2dd12d;
+    }
+    body.light-mode .admin-announcement-form button:hover {
+      background: #0d8a2d;
+    }
     @media (max-width: 600px) {
       body {
         font-size: 0.9rem;
@@ -704,7 +820,18 @@
     </div>
     <div class="admin-controls" id="adminControls">
       <button class="delete-all-btn" id="deleteAllBtn">DELETE ALL COMMENTS</button>
+      <div class="admin-announcement-form" id="announcementForm">
+        <input type="text" id="announcementTitle" placeholder="Announcement Title..." maxlength="50">
+        <textarea id="announcementText" placeholder="Announcement Message..." maxlength="200"></textarea>
+        <button id="createAnnouncementBtn">CREATE ANNOUNCEMENT</button>
+        <button id="clearAnnouncementBtn">CLEAR ANNOUNCEMENT</button>
+      </div>
     </div>
+  </div>
+  <div class="announcement" id="announcement">
+    <button class="announcement-close" id="announcementClose">×</button>
+    <div class="announcement-title" id="announcementTitleDisplay"></div>
+    <div class="announcement-text" id="announcementTextDisplay"></div>
   </div>
   <div class="view-counter" aria-label="Total views">
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1038,13 +1165,71 @@
       }
     }
 
+    // Announcement system
+    const announcement = document.getElementById('announcement');
+    const announcementTitleDisplay = document.getElementById('announcementTitleDisplay');
+    const announcementTextDisplay = document.getElementById('announcementTextDisplay');
+    const announcementClose = document.getElementById('announcementClose');
+    const announcementForm = document.getElementById('announcementForm');
+    const announcementTitleInput = document.getElementById('announcementTitle');
+    const announcementTextInput = document.getElementById('announcementText');
+    const createAnnouncementBtn = document.getElementById('createAnnouncementBtn');
+    const clearAnnouncementBtn = document.getElementById('clearAnnouncementBtn');
+
+    // Load announcement from localStorage
+    function loadAnnouncement() {
+      const savedAnnouncement = JSON.parse(localStorage.getItem('envaxiom-announcement') || 'null');
+      if (savedAnnouncement && savedAnnouncement.title && savedAnnouncement.text) {
+        announcementTitleDisplay.textContent = savedAnnouncement.title;
+        announcementTextDisplay.textContent = savedAnnouncement.text;
+        announcement.style.display = 'block';
+      }
+    }
+
+    // Save announcement to localStorage
+    function saveAnnouncement(title, text) {
+      const announcementData = { title, text, timestamp: Date.now() };
+      localStorage.setItem('envaxiom-announcement', JSON.stringify(announcementData));
+    }
+
+    // Clear announcement
+    function clearAnnouncement() {
+      localStorage.removeItem('envaxiom-announcement');
+      announcement.style.display = 'none';
+      announcementTitleInput.value = '';
+      announcementTextInput.value = '';
+    }
+
+    // Create announcement
+    function createAnnouncement() {
+      const title = announcementTitleInput.value.trim();
+      const text = announcementTextInput.value.trim();
+      
+      if (title && text) {
+        announcementTitleDisplay.textContent = title;
+        announcementTextDisplay.textContent = text;
+        announcement.style.display = 'block';
+        saveAnnouncement(title, text);
+        announcementTitleInput.value = '';
+        announcementTextInput.value = '';
+      }
+    }
+
+    // Event listeners for announcements
+    createAnnouncementBtn.addEventListener('click', createAnnouncement);
+    clearAnnouncementBtn.addEventListener('click', clearAnnouncement);
+    announcementClose.addEventListener('click', () => {
+      announcement.style.display = 'none';
+    });
+
     // Event listeners
     deleteAllBtn.addEventListener('click', deleteAllComments);
 
-    // Load comments and check admin access when page loads
+    // Load comments, check admin access, and load announcement when page loads
     window.addEventListener('DOMContentLoaded', () => {
       loadComments();
       checkAdminAccess();
+      loadAnnouncement();
     });
   </script>
 </body>
