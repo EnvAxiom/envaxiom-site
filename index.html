@@ -1066,23 +1066,60 @@
       }
     }
 
-    // Load saved comments on page load
-    function loadComments() {
-      const savedComments = JSON.parse(localStorage.getItem('envaxiom-comments') || '[]');
-      savedComments.forEach(comment => {
-        addCommentToDOM(comment);
-      });
+    // Load comments from shared storage
+    async function loadComments() {
+      try {
+        // Use JSONBin for shared comment storage
+        const response = await fetch('https://api.jsonbin.io/v3/b/68d706f4ae596e708ffd1e94');
+        
+        if (response.ok) {
+          const data = await response.json();
+          const comments = data.comments || [];
+          comments.forEach(comment => {
+            addCommentToDOM(comment);
+          });
+          console.log('Loaded comments from shared storage');
+        } else {
+          throw new Error('API failed');
+        }
+      } catch (e) {
+        console.log('Could not load comments from shared storage, using localStorage fallback');
+        // Fallback to localStorage if API fails
+        const savedComments = JSON.parse(localStorage.getItem('envaxiom-comments') || '[]');
+        savedComments.forEach(comment => {
+          addCommentToDOM(comment);
+        });
+      }
     }
 
-    // Save comments to localStorage
-    function saveComments() {
+    // Save comments to shared storage
+    async function saveComments() {
       const comments = Array.from(commentsContainer.children).map(item => {
         return {
           text: item.querySelector('.comment-text').textContent,
           timestamp: Date.now()
         };
       });
+      
+      // Save to localStorage as backup
       localStorage.setItem('envaxiom-comments', JSON.stringify(comments));
+      
+      try {
+        // Try to save to shared storage
+        const response = await fetch('https://api.jsonbin.io/v3/b/68d706f4ae596e708ffd1e94', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ comments: comments })
+        });
+        
+        if (response.ok) {
+          console.log('Comments synced to shared storage');
+        }
+      } catch (e) {
+        console.log('Could not sync to shared storage, using localStorage only');
+      }
     }
 
     // Add comment to DOM
