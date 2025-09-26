@@ -273,6 +273,192 @@
       color: #0a7d2c;
       box-shadow: 0 2px 8px #bbb;
     }
+    .comment-section {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      background: rgba(20, 20, 20, 0.85);
+      border-radius: 12px;
+      box-shadow: 0 4px 16px #222;
+      padding: 16px;
+      width: 280px;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+    body.light-mode .comment-section {
+      background: rgba(234, 234, 234, 0.9);
+      box-shadow: 0 4px 16px #bbb;
+    }
+    .comment-header {
+      font-family: 'Press Start 2P', monospace;
+      color: #39ff14;
+      font-size: 0.9rem;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+    body.light-mode .comment-header {
+      color: #0a7d2c;
+    }
+    .comment-item {
+      display: flex;
+      margin-bottom: 12px;
+      padding: 8px;
+      background: rgba(40, 40, 40, 0.6);
+      border-radius: 8px;
+      border-left: 3px solid #39ff14;
+    }
+    body.light-mode .comment-item {
+      background: rgba(200, 200, 200, 0.6);
+      border-left-color: #0a7d2c;
+    }
+    .comment-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #39ff14;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 10px;
+      flex-shrink: 0;
+    }
+    body.light-mode .comment-avatar {
+      background: #0a7d2c;
+    }
+    .comment-avatar svg {
+      width: 20px;
+      height: 20px;
+      fill: #222;
+    }
+    body.light-mode .comment-avatar svg {
+      fill: #fff;
+    }
+    .comment-content {
+      flex: 1;
+    }
+    .comment-name {
+      font-family: 'Press Start 2P', monospace;
+      color: #39ff14;
+      font-size: 0.7rem;
+      margin-bottom: 4px;
+    }
+    body.light-mode .comment-name {
+      color: #0a7d2c;
+    }
+    .comment-text {
+      color: #fff;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.6rem;
+      line-height: 1.4;
+      word-wrap: break-word;
+    }
+    body.light-mode .comment-text {
+      color: #222;
+    }
+    .comment-input {
+      display: flex;
+      margin-top: 12px;
+    }
+    .comment-input input {
+      flex: 1;
+      background: rgba(40, 40, 40, 0.8);
+      border: 2px solid #39ff14;
+      border-radius: 6px;
+      padding: 6px 8px;
+      color: #fff;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.6rem;
+      outline: none;
+    }
+    body.light-mode .comment-input input {
+      background: rgba(200, 200, 200, 0.8);
+      border-color: #0a7d2c;
+      color: #222;
+    }
+    .comment-input input::placeholder {
+      color: #666;
+    }
+    body.light-mode .comment-input input::placeholder {
+      color: #888;
+    }
+    .comment-submit {
+      background: #39ff14;
+      border: none;
+      border-radius: 6px;
+      padding: 6px 10px;
+      margin-left: 6px;
+      color: #222;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.6rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    body.light-mode .comment-submit {
+      background: #0a7d2c;
+      color: #fff;
+    }
+    .comment-submit:hover {
+      background: #2dd12d;
+    }
+    body.light-mode .comment-submit:hover {
+      background: #0d8a2d;
+    }
+    .admin-controls {
+      display: none;
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid #39ff14;
+    }
+    body.light-mode .admin-controls {
+      border-top-color: #0a7d2c;
+    }
+    .admin-controls button {
+      background: #ff4444;
+      border: none;
+      border-radius: 4px;
+      padding: 4px 8px;
+      color: #fff;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.5rem;
+      cursor: pointer;
+      margin-right: 4px;
+      transition: background 0.2s;
+    }
+    .admin-controls button:hover {
+      background: #ff6666;
+    }
+    .delete-all-btn {
+      background: #ff0000 !important;
+      font-size: 0.6rem !important;
+      padding: 6px 10px !important;
+    }
+    .delete-all-btn:hover {
+      background: #cc0000 !important;
+    }
+    .comment-item.admin-mode {
+      position: relative;
+    }
+    .comment-item.admin-mode .comment-delete {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      background: #ff4444;
+      border: none;
+      border-radius: 3px;
+      width: 16px;
+      height: 16px;
+      color: #fff;
+      font-size: 0.4rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .comment-item.admin-mode .comment-delete:hover {
+      background: #ff6666;
+    }
     @media (max-width: 600px) {
       body {
         font-size: 0.9rem;
@@ -508,6 +694,18 @@
     <input type="range" id="volumeBar" min="0" max="100" value="50" style="width:80px; margin-left:18px;">
     <span style="font-family:'Press Start 2P', monospace; color:#39ff14; font-size:0.9rem; margin-left:6px;" id="volumeLabel">50%</span>
   </div>
+  <div class="comment-section">
+    <div class="comment-header">COMMENTS</div>
+    <div id="comments-container">
+    </div>
+    <div class="comment-input">
+      <input type="text" id="commentInput" placeholder="Leave a comment..." maxlength="100">
+      <button class="comment-submit" id="commentSubmit">POST</button>
+    </div>
+    <div class="admin-controls" id="adminControls">
+      <button class="delete-all-btn" id="deleteAllBtn">DELETE ALL COMMENTS</button>
+    </div>
+  </div>
   <div class="view-counter" aria-label="Total views">
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z" stroke="#39ff14" stroke-width="2" fill="none"/>
@@ -681,20 +879,173 @@
     const viewCountEl = document.getElementById('viewCount');
     async function updateViewCount() {
       try {
-        const res = await fetch('https://api.countapi.xyz/hit/envaxiom-site/index');
-        if (!res.ok) throw new Error('Network');
-        const data = await res.json();
-        const value = typeof data.value === 'number' ? data.value : undefined;
-        if (value !== undefined) {
-          viewCountEl.textContent = value.toLocaleString();
-        } else {
-          viewCountEl.textContent = '?';
+        // Try multiple counter services for better reliability
+        const services = [
+          'https://api.countapi.xyz/hit/envaxiom-site/views',
+          'https://api.countapi.xyz/get/envaxiom-site/views',
+          'https://api.countapi.xyz/create?namespace=envaxiom-site&key=views&value=0'
+        ];
+        
+        let success = false;
+        for (const url of services) {
+          try {
+            const res = await fetch(url, { 
+              method: 'GET',
+              headers: { 'Accept': 'application/json' }
+            });
+            if (res.ok) {
+              const data = await res.json();
+              if (typeof data.value === 'number') {
+                viewCountEl.textContent = data.value.toLocaleString();
+                success = true;
+                break;
+              }
+            }
+          } catch (e) {
+            continue;
+          }
+        }
+        
+        if (!success) {
+          // Fallback: use localStorage for basic counting
+          let localCount = parseInt(localStorage.getItem('envaxiom-views') || '0');
+          localCount++;
+          localStorage.setItem('envaxiom-views', localCount.toString());
+          viewCountEl.textContent = localCount.toLocaleString();
         }
       } catch (e) {
         viewCountEl.textContent = '?';
       }
     }
     window.addEventListener('DOMContentLoaded', updateViewCount);
+
+    // Comment system with localStorage persistence
+    const commentInput = document.getElementById('commentInput');
+    const commentSubmit = document.getElementById('commentSubmit');
+    const commentsContainer = document.getElementById('comments-container');
+    const adminControls = document.getElementById('adminControls');
+    const deleteAllBtn = document.getElementById('deleteAllBtn');
+    
+    let isAdminMode = false;
+
+    // Check URL parameter for admin access
+    function checkAdminAccess() {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('admin') === 'true') {
+        isAdminMode = true;
+        adminControls.style.display = 'block';
+        updateCommentButtons();
+        console.log('Admin mode activated via URL parameter');
+      }
+    }
+
+    // Load saved comments on page load
+    function loadComments() {
+      const savedComments = JSON.parse(localStorage.getItem('envaxiom-comments') || '[]');
+      savedComments.forEach(comment => {
+        addCommentToDOM(comment);
+      });
+    }
+
+    // Save comments to localStorage
+    function saveComments() {
+      const comments = Array.from(commentsContainer.children).map(item => {
+        return {
+          text: item.querySelector('.comment-text').textContent,
+          timestamp: Date.now()
+        };
+      });
+      localStorage.setItem('envaxiom-comments', JSON.stringify(comments));
+    }
+
+    // Add comment to DOM
+    function addCommentToDOM(comment) {
+      const commentItem = document.createElement('div');
+      commentItem.className = 'comment-item';
+      commentItem.innerHTML = `
+        <div class="comment-avatar">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+          </svg>
+        </div>
+        <div class="comment-content">
+          <div class="comment-name">ANONYMOUS</div>
+          <div class="comment-text">${comment.text || comment}</div>
+        </div>
+        ${isAdminMode ? '<button class="comment-delete" onclick="deleteComment(this)">×</button>' : ''}
+      `;
+      commentsContainer.appendChild(commentItem);
+      commentsContainer.scrollTop = commentsContainer.scrollHeight;
+    }
+
+    // Add new comment
+    function addComment(text) {
+      addCommentToDOM(text);
+      saveComments();
+    }
+
+    commentSubmit.addEventListener('click', () => {
+      const text = commentInput.value.trim();
+      if (text) {
+        addComment(text);
+        commentInput.value = '';
+      }
+    });
+
+    commentInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        const text = commentInput.value.trim();
+        if (text) {
+          addComment(text);
+          commentInput.value = '';
+        }
+      }
+    });
+
+    // Update comment buttons based on admin status
+    function updateCommentButtons() {
+      const commentItems = commentsContainer.querySelectorAll('.comment-item');
+      commentItems.forEach(item => {
+        if (isAdminMode) {
+          item.classList.add('admin-mode');
+          if (!item.querySelector('.comment-delete')) {
+            const deleteBtn = document.createElement('button');
+            deleteBtn.className = 'comment-delete';
+            deleteBtn.innerHTML = '×';
+            deleteBtn.onclick = () => deleteComment(deleteBtn);
+            item.appendChild(deleteBtn);
+          }
+        } else {
+          item.classList.remove('admin-mode');
+          const deleteBtn = item.querySelector('.comment-delete');
+          if (deleteBtn) deleteBtn.remove();
+        }
+      });
+    }
+
+    // Delete individual comment
+    function deleteComment(button) {
+      const commentItem = button.closest('.comment-item');
+      commentItem.remove();
+      saveComments();
+    }
+
+    // Delete all comments
+    function deleteAllComments() {
+      if (confirm('Are you sure you want to delete ALL comments?')) {
+        commentsContainer.innerHTML = '';
+        localStorage.removeItem('envaxiom-comments');
+      }
+    }
+
+    // Event listeners
+    deleteAllBtn.addEventListener('click', deleteAllComments);
+
+    // Load comments and check admin access when page loads
+    window.addEventListener('DOMContentLoaded', () => {
+      loadComments();
+      checkAdminAccess();
+    });
   </script>
 </body>
 </html>
