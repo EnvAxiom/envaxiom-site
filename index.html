@@ -246,6 +246,33 @@
       text-align: center;
       min-height: 40px;
     }
+    .view-counter {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      z-index: 15;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(20, 20, 20, 0.85);
+      color: #fff;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.9rem;
+      padding: 8px 12px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px #222;
+      user-select: none;
+    }
+    .view-counter svg {
+      width: 20px;
+      height: 20px;
+      flex: 0 0 20px;
+    }
+    body.light-mode .view-counter {
+      background: rgba(234, 234, 234, 0.9);
+      color: #0a7d2c;
+      box-shadow: 0 2px 8px #bbb;
+    }
     @media (max-width: 600px) {
       body {
         font-size: 0.9rem;
@@ -481,6 +508,13 @@
     <input type="range" id="volumeBar" min="0" max="100" value="50" style="width:80px; margin-left:18px;">
     <span style="font-family:'Press Start 2P', monospace; color:#39ff14; font-size:0.9rem; margin-left:6px;" id="volumeLabel">50%</span>
   </div>
+  <div class="view-counter" aria-label="Total views">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z" stroke="#39ff14" stroke-width="2" fill="none"/>
+      <circle cx="12" cy="12" r="3" fill="#39ff14"/>
+    </svg>
+    <span id="viewCount">--</span>
+  </div>
   <audio id="bg-music" src="Simar - Zap Zape.mp3" preload="auto" autoplay loop></audio>
   <script>
     const songs = [
@@ -642,6 +676,25 @@
       axiomTitle.style.color = fadeColors[fadeIndex];
       fadeIndex = (fadeIndex + 1) % fadeColors.length;
     }, 700);
+
+    // Viewer count (persistent total views via public API)
+    const viewCountEl = document.getElementById('viewCount');
+    async function updateViewCount() {
+      try {
+        const res = await fetch('https://api.countapi.xyz/hit/envaxiom-site/index');
+        if (!res.ok) throw new Error('Network');
+        const data = await res.json();
+        const value = typeof data.value === 'number' ? data.value : undefined;
+        if (value !== undefined) {
+          viewCountEl.textContent = value.toLocaleString();
+        } else {
+          viewCountEl.textContent = '?';
+        }
+      } catch (e) {
+        viewCountEl.textContent = '?';
+      }
+    }
+    window.addEventListener('DOMContentLoaded', updateViewCount);
   </script>
 </body>
 </html>
