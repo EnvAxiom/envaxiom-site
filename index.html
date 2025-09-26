@@ -273,6 +273,13 @@
       color: #0a7d2c;
       box-shadow: 0 2px 8px #bbb;
     }
+    .mouse-trail {
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      border-radius: 50%;
+      mix-blend-mode: difference;
+    }
     @media (max-width: 600px) {
       body {
         font-size: 0.9rem;
@@ -725,6 +732,39 @@
       }
     }
     window.addEventListener('DOMContentLoaded', updateViewCount);
+
+    // Mouse trail effect
+    const trail = [];
+    const trailLength = 20;
+    
+    function createTrailDot(x, y) {
+      const dot = document.createElement('div');
+      dot.className = 'mouse-trail';
+      dot.style.left = x + 'px';
+      dot.style.top = y + 'px';
+      dot.style.width = '20px';
+      dot.style.height = '20px';
+      dot.style.background = '#fff';
+      dot.style.opacity = '0.8';
+      document.body.appendChild(dot);
+      
+      // Fade out animation
+      let opacity = 0.8;
+      const fadeInterval = setInterval(() => {
+        opacity -= 0.05;
+        dot.style.opacity = opacity;
+        if (opacity <= 0) {
+          clearInterval(fadeInterval);
+          document.body.removeChild(dot);
+        }
+      }, 50);
+      
+      return dot;
+    }
+    
+    document.addEventListener('mousemove', (e) => {
+      createTrailDot(e.clientX - 10, e.clientY - 10);
+    });
 
 
   </script>
