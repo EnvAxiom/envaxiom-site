@@ -273,44 +273,6 @@
       color: #0a7d2c;
       box-shadow: 0 2px 8px #bbb;
     }
-    .time-display {
-      position: absolute;
-      top: 32px;
-      right: 32px;
-      z-index: 10;
-      background: rgba(20, 20, 20, 0.85);
-      border-radius: 8px;
-      box-shadow: 0 2px 8px #222;
-      padding: 12px 16px;
-      text-align: center;
-      min-width: 140px;
-    }
-    body.light-mode .time-display {
-      background: rgba(234, 234, 234, 0.9);
-      box-shadow: 0 4px 16px #bbb;
-    }
-    .time-title {
-      font-family: 'Press Start 2P', monospace;
-      color: #39ff14;
-      font-size: 0.6rem;
-      margin-bottom: 6px;
-      text-shadow: 1px 1px 0 #222;
-    }
-    body.light-mode .time-title {
-      color: #0a7d2c;
-      text-shadow: 1px 1px 0 #fff;
-    }
-    .time-clock {
-      font-family: 'Press Start 2P', monospace;
-      color: #fff;
-      font-size: 1rem;
-      text-shadow: 1px 1px 0 #222;
-      letter-spacing: 0.5px;
-    }
-    body.light-mode .time-clock {
-      color: #222;
-      text-shadow: 1px 1px 0 #fff;
-    }
     @media (max-width: 600px) {
       body {
         font-size: 0.9rem;
@@ -546,10 +508,6 @@
     <input type="range" id="volumeBar" min="0" max="100" value="50" style="width:80px; margin-left:18px;">
     <span style="font-family:'Press Start 2P', monospace; color:#39ff14; font-size:0.9rem; margin-left:6px;" id="volumeLabel">50%</span>
   </div>
-  <div class="time-display">
-    <div class="time-title">Axiom's current time</div>
-    <div class="time-clock" id="currentTime">--:--:--</div>
-  </div>
   <div class="view-counter" aria-label="Total views">
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z" stroke="#39ff14" stroke-width="2" fill="none"/>
@@ -768,23 +726,6 @@
     }
     window.addEventListener('DOMContentLoaded', updateViewCount);
 
-    // Live clock for Linz, Austria timezone
-    const timeDisplay = document.getElementById('currentTime');
-    
-    function updateTime() {
-      const now = new Date();
-      const linzTime = new Date(now.toLocaleString("en-US", {timeZone: "Europe/Vienna"}));
-      
-      const hours = linzTime.getHours().toString().padStart(2, '0');
-      const minutes = linzTime.getMinutes().toString().padStart(2, '0');
-      const seconds = linzTime.getSeconds().toString().padStart(2, '0');
-      
-      timeDisplay.textContent = `${hours}:${minutes}:${seconds}`;
-    }
-    
-    // Update time immediately and then every second
-    updateTime();
-    setInterval(updateTime, 1000);
 
   </script>
 </body>
