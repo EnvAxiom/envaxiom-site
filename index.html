@@ -273,6 +273,90 @@
       color: #0a7d2c;
       box-shadow: 0 2px 8px #bbb;
     }
+    .about-btn {
+      position: absolute;
+      top: 32px;
+      left: 32px;
+      z-index: 10;
+      background: #39ff14;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 16px;
+      color: #222;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.8rem;
+      cursor: pointer;
+      box-shadow: 0 2px 8px #222;
+      transition: background 0.2s;
+    }
+    body.light-mode .about-btn {
+      background: #0a7d2c;
+      color: #fff;
+      box-shadow: 0 2px 8px #bbb;
+    }
+    .about-btn:hover {
+      background: #2dd12d;
+    }
+    body.light-mode .about-btn:hover {
+      background: #0d8a2d;
+    }
+    .about-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+    .about-content {
+      background: rgba(20, 20, 20, 0.95);
+      border: 2px solid #39ff14;
+      border-radius: 12px;
+      padding: 32px;
+      width: 50vw;
+      height: 50vh;
+      text-align: center;
+      box-shadow: 0 4px 16px #222;
+      position: relative;
+    }
+    body.light-mode .about-content {
+      background: rgba(234, 234, 234, 0.95);
+      border-color: #0a7d2c;
+      box-shadow: 0 4px 16px #bbb;
+    }
+    .about-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: #ff4444;
+      border: none;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      color: #fff;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .about-close:hover {
+      background: #ff6666;
+    }
+    .about-text {
+      font-family: 'Press Start 2P', monospace;
+      color: #fff;
+      font-size: 1.2rem;
+      line-height: 1.6;
+      margin-top: 40px;
+    }
+    body.light-mode .about-text {
+      color: #222;
+    }
     @media (max-width: 600px) {
       body {
         font-size: 0.9rem;
@@ -508,6 +592,16 @@
     <input type="range" id="volumeBar" min="0" max="100" value="50" style="width:80px; margin-left:18px;">
     <span style="font-family:'Press Start 2P', monospace; color:#39ff14; font-size:0.9rem; margin-left:6px;" id="volumeLabel">50%</span>
   </div>
+  <button class="about-btn" id="aboutBtn">ABOUT ME</button>
+  <div class="about-modal" id="aboutModal">
+    <div class="about-content">
+      <button class="about-close" id="aboutClose">×</button>
+      <div class="about-text">
+        hi im axiom<br>
+        im 16 and i play games
+      </div>
+    </div>
+  </div>
   <div class="view-counter" aria-label="Total views">
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z" stroke="#39ff14" stroke-width="2" fill="none"/>
@@ -725,6 +819,26 @@
       }
     }
     window.addEventListener('DOMContentLoaded', updateViewCount);
+
+    // About modal functionality
+    const aboutBtn = document.getElementById('aboutBtn');
+    const aboutModal = document.getElementById('aboutModal');
+    const aboutClose = document.getElementById('aboutClose');
+
+    aboutBtn.addEventListener('click', () => {
+      aboutModal.style.display = 'flex';
+    });
+
+    aboutClose.addEventListener('click', () => {
+      aboutModal.style.display = 'none';
+    });
+
+    // Close modal when clicking outside
+    aboutModal.addEventListener('click', (e) => {
+      if (e.target === aboutModal) {
+        aboutModal.style.display = 'none';
+      }
+    });
 
 
 
