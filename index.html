@@ -598,8 +598,59 @@
     <div class="about-content">
       <button class="about-close" id="aboutClose">×</button>
       <div class="about-text">
-        hi im axiom<br>
-        im 16 and i play games
+        ╔══════════════════════════════════════╗<br>
+        ║           SYSTEM PROFILE             ║<br>
+        ╚══════════════════════════════════════╝<br><br>
+        
+        USER: AXIOM/DILSHER<br>
+        AGE: 16 YEARS OLD<br>
+        LOCATION: AUSTRIA, LINZ<br>
+        STATUS: ONLINE & GAMING<br><br>
+        
+        ╔══════════════════════════════════════╗<br>
+        ║           SPECIALIZATION             ║<br>
+        ╚══════════════════════════════════════╝<br><br>
+        
+        🎮 GAMING EXPERT<br>
+        🎵 MUSIC ENTHUSIAST<br>
+        💻 TECH SAVVY<br>
+        🎨 CREATIVE MIND<br><br>
+        
+        ╔══════════════════════════════════════╗<br>
+        ║           CURRENT STATUS             ║<br>
+        ╚══════════════════════════════════════╝<br><br>
+        
+        🟢 ONLINE<br>
+        🎧 LISTENING TO MUSIC<br>
+        🎮 PROBABLY GAMING<br>
+        💭 THINKING ABOUT CODE<br><br>
+        
+        ╔══════════════════════════════════════╗<br>
+        ║           PERSONALITY                ║<br>
+        ╚══════════════════════════════════════╝<br><br>
+        
+        • CHILL & FRIENDLY<br>
+        • LOVES RETRO AESTHETICS<br>
+        • ALWAYS DOWN TO GAME<br>
+        • PASSIONATE ABOUT MUSIC<br>
+        • TECH OBSESSED<br><br>
+        
+        ╔══════════════════════════════════════╗<br>
+        ║           CONTACT INFO               ║<br>
+        ╚══════════════════════════════════════╝<br><br>
+        
+        📱 TIKTOK: @DILSHERJAMALABDALLA<br>
+        🎵 MUSIC: ALWAYS PLAYING<br>
+        🎮 GAMES: ALWAYS READY<br><br>
+        
+        ╔══════════════════════════════════════╗<br>
+        ║           SYSTEM MESSAGE             ║<br>
+        ╚══════════════════════════════════════╝<br><br>
+        
+        WELCOME TO MY DIGITAL SPACE!<br>
+        HOPE YOU ENJOY THE VIBES! 🚀<br><br>
+        
+        [PRESS ANY KEY TO CONTINUE...]
       </div>
     </div>
   </div>
@@ -1099,20 +1150,56 @@
     const aboutModal = document.getElementById('aboutModal');
     const aboutClose = document.getElementById('aboutClose');
 
-    aboutBtn.addEventListener('click', () => {
-      aboutModal.style.display = 'flex';
-    });
+    if (aboutBtn && aboutModal && aboutClose) {
+      aboutBtn.addEventListener('click', () => {
+        aboutModal.style.display = 'flex';
+        console.log('About modal opened');
+        
+        // Add typing animation to about text
+        const aboutText = document.querySelector('.about-text');
+        if (aboutText) {
+          const originalText = aboutText.innerHTML;
+          aboutText.innerHTML = '';
+          
+          function typeText(text, element, speed = 30) {
+            let i = 0;
+            function type() {
+              if (i < text.length) {
+                element.innerHTML += text.charAt(i);
+                i++;
+                setTimeout(type, speed);
+              }
+            }
+            type();
+          }
+          
+          typeText(originalText, aboutText, 20);
+        }
+      });
 
-    aboutClose.addEventListener('click', () => {
-      aboutModal.style.display = 'none';
-    });
-
-    // Close modal when clicking outside
-    aboutModal.addEventListener('click', (e) => {
-      if (e.target === aboutModal) {
+      aboutClose.addEventListener('click', () => {
         aboutModal.style.display = 'none';
-      }
-    });
+        console.log('About modal closed');
+      });
+
+      // Close modal when clicking outside
+      aboutModal.addEventListener('click', (e) => {
+        if (e.target === aboutModal) {
+          aboutModal.style.display = 'none';
+          console.log('About modal closed by clicking outside');
+        }
+      });
+
+      // Close modal with Escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && aboutModal.style.display === 'flex') {
+          aboutModal.style.display = 'none';
+          console.log('About modal closed with Escape key');
+        }
+      });
+    } else {
+      console.error('About modal elements not found');
+    }
 
 
 
