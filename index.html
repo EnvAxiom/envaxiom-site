@@ -777,6 +777,62 @@
       fadeIndex = (fadeIndex + 1) % fadeColors.length;
     }, 700);
 
+    // Particle system
+    function createParticle() {
+      const particle = document.createElement('div');
+      particle.style.position = 'fixed';
+      particle.style.width = '4px';
+      particle.style.height = '4px';
+      particle.style.backgroundColor = '#fff';
+      particle.style.borderRadius = '50%';
+      particle.style.pointerEvents = 'none';
+      particle.style.zIndex = '1';
+      particle.style.opacity = '0.7';
+      
+      // Random starting position
+      particle.style.left = Math.random() * window.innerWidth + 'px';
+      particle.style.top = Math.random() * window.innerHeight + 'px';
+      
+      document.body.appendChild(particle);
+      
+      // Animate particle
+      let x = Math.random() * window.innerWidth;
+      let y = Math.random() * window.innerHeight;
+      let vx = (Math.random() - 0.5) * 2;
+      let vy = (Math.random() - 0.5) * 2;
+      
+      function animate() {
+        x += vx;
+        y += vy;
+        
+        // Bounce off edges
+        if (x < 0 || x > window.innerWidth) vx *= -1;
+        if (y < 0 || y > window.innerHeight) vy *= -1;
+        
+        particle.style.left = x + 'px';
+        particle.style.top = y + 'px';
+        
+        requestAnimationFrame(animate);
+      }
+      
+      animate();
+      
+      // Remove particle after 10 seconds
+      setTimeout(() => {
+        if (particle.parentNode) {
+          particle.parentNode.removeChild(particle);
+        }
+      }, 10000);
+    }
+    
+    // Create particles every 2 seconds
+    setInterval(createParticle, 2000);
+    
+    // Create initial particles
+    for (let i = 0; i < 5; i++) {
+      setTimeout(createParticle, i * 500);
+    }
+
     // Viewer count (persistent total views via public API)
     const viewCountEl = document.getElementById('viewCount');
     async function updateViewCount() {
