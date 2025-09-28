@@ -833,6 +833,223 @@
       setTimeout(createParticle, i * 500);
     }
 
+    // Matrix-style falling code rain
+    function createMatrixRain() {
+      const canvas = document.createElement('canvas');
+      canvas.style.position = 'fixed';
+      canvas.style.top = '0';
+      canvas.style.left = '0';
+      canvas.style.width = '100%';
+      canvas.style.height = '100%';
+      canvas.style.pointerEvents = 'none';
+      canvas.style.zIndex = '0';
+      canvas.style.opacity = '0.1';
+      document.body.appendChild(canvas);
+      
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      
+      const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+      const fontSize = 14;
+      const columns = Math.floor(canvas.width / fontSize);
+      const drops = Array(columns).fill(1);
+      
+      function draw() {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        ctx.fillStyle = '#0F0';
+        ctx.font = fontSize + 'px monospace';
+        
+        for (let i = 0; i < drops.length; i++) {
+          const text = chars[Math.floor(Math.random() * chars.length)];
+          ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+          
+          if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+          }
+          drops[i]++;
+        }
+      }
+      
+      setInterval(draw, 50);
+    }
+    
+    // Start matrix rain
+    createMatrixRain();
+
+    // Glitch effect for title
+    function addGlitchEffect() {
+      const title = document.getElementById('axiomTitle');
+      let glitchInterval;
+      
+      function glitch() {
+        title.style.textShadow = `
+          ${Math.random() * 4 - 2}px ${Math.random() * 4 - 2}px 0 #ff0000,
+          ${Math.random() * 4 - 2}px ${Math.random() * 4 - 2}px 0 #00ff00,
+          ${Math.random() * 4 - 2}px ${Math.random() * 4 - 2}px 0 #0000ff
+        `;
+        title.style.transform = `translate(${Math.random() * 4 - 2}px, ${Math.random() * 4 - 2}px)`;
+        
+        setTimeout(() => {
+          title.style.textShadow = '';
+          title.style.transform = '';
+        }, 100);
+      }
+      
+      setInterval(() => {
+        if (Math.random() < 0.1) {
+          glitch();
+        }
+      }, 2000);
+    }
+    
+    addGlitchEffect();
+
+    // Audio visualizer
+    function createAudioVisualizer() {
+      const visualizer = document.createElement('div');
+      visualizer.style.position = 'fixed';
+      visualizer.style.bottom = '20px';
+      visualizer.style.left = '50%';
+      visualizer.style.transform = 'translateX(-50%)';
+      visualizer.style.display = 'flex';
+      visualizer.style.alignItems = 'end';
+      visualizer.style.gap = '3px';
+      visualizer.style.zIndex = '10';
+      visualizer.style.height = '60px';
+      document.body.appendChild(visualizer);
+      
+      for (let i = 0; i < 20; i++) {
+        const bar = document.createElement('div');
+        bar.style.width = '4px';
+        bar.style.backgroundColor = '#fff';
+        bar.style.borderRadius = '2px';
+        bar.style.transition = 'height 0.1s ease';
+        bar.style.height = '10px';
+        visualizer.appendChild(bar);
+      }
+      
+      const audio = document.getElementById('audio');
+      const bars = visualizer.children;
+      
+      function updateVisualizer() {
+        if (!audio.paused) {
+          bars.forEach((bar, index) => {
+            const height = Math.random() * 50 + 10;
+            bar.style.height = height + 'px';
+            bar.style.opacity = Math.random() * 0.8 + 0.2;
+          });
+        }
+        requestAnimationFrame(updateVisualizer);
+      }
+      
+      updateVisualizer();
+    }
+    
+    createAudioVisualizer();
+
+    // Terminal typing animation for song info
+    function addTypingAnimation() {
+      const songTitle = document.getElementById('song-title');
+      const originalText = songTitle.textContent;
+      
+      function typeText(element, text, speed = 100) {
+        element.textContent = '';
+        let i = 0;
+        
+        function type() {
+          if (i < text.length) {
+            element.textContent += text.charAt(i);
+            i++;
+            setTimeout(type, speed);
+          }
+        }
+        
+        type();
+      }
+      
+      // Retype when song changes
+      const observer = new MutationObserver(() => {
+        if (songTitle.textContent !== originalText) {
+          setTimeout(() => {
+            typeText(songTitle, songTitle.textContent, 50);
+          }, 500);
+        }
+      });
+      
+      observer.observe(songTitle, { childList: true, characterData: true, subtree: true });
+    }
+    
+    addTypingAnimation();
+
+    // Glowing cursor trail
+    function createCursorTrail() {
+      const trail = [];
+      const trailLength = 20;
+      
+      document.addEventListener('mousemove', (e) => {
+        const dot = document.createElement('div');
+        dot.style.position = 'fixed';
+        dot.style.left = e.clientX + 'px';
+        dot.style.top = e.clientY + 'px';
+        dot.style.width = '6px';
+        dot.style.height = '6px';
+        dot.style.backgroundColor = '#00ff00';
+        dot.style.borderRadius = '50%';
+        dot.style.pointerEvents = 'none';
+        dot.style.zIndex = '9999';
+        dot.style.boxShadow = '0 0 10px #00ff00';
+        document.body.appendChild(dot);
+        
+        trail.push(dot);
+        
+        if (trail.length > trailLength) {
+          const oldDot = trail.shift();
+          if (oldDot.parentNode) {
+            oldDot.parentNode.removeChild(oldDot);
+          }
+        }
+        
+        // Fade out trail
+        trail.forEach((trailDot, index) => {
+          const opacity = (index + 1) / trailLength;
+          trailDot.style.opacity = opacity;
+          trailDot.style.transform = `scale(${opacity})`;
+        });
+      });
+    }
+    
+    createCursorTrail();
+
+    // CRT screen flicker effect
+    function addScreenFlicker() {
+      const flickerOverlay = document.createElement('div');
+      flickerOverlay.style.position = 'fixed';
+      flickerOverlay.style.top = '0';
+      flickerOverlay.style.left = '0';
+      flickerOverlay.style.width = '100%';
+      flickerOverlay.style.height = '100%';
+      flickerOverlay.style.background = 'rgba(0, 255, 0, 0.03)';
+      flickerOverlay.style.pointerEvents = 'none';
+      flickerOverlay.style.zIndex = '9998';
+      flickerOverlay.style.animation = 'flicker 0.15s infinite linear';
+      document.body.appendChild(flickerOverlay);
+      
+      // Add flicker animation
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes flicker {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.98; }
+        }
+      `;
+      document.head.appendChild(style);
+    }
+    
+    addScreenFlicker();
+
     // Viewer count (persistent total views via public API)
     const viewCountEl = document.getElementById('viewCount');
     async function updateViewCount() {
