@@ -596,7 +596,6 @@
     <span style="font-family:'Press Start 2P', monospace; color:#39ff14; font-size:0.9rem; margin-left:6px;" id="volumeLabel">50%</span>
   </div>
   <button class="about-btn" id="aboutBtn">ABOUT ME</button>
-  <button onclick="document.getElementById('aboutModal').style.display='flex'" style="position:fixed;top:150px;left:20px;z-index:9999;background:red;color:white;padding:10px;">TEST MODAL</button>
   <div class="about-modal" id="aboutModal">
     <div class="about-content">
       <button class="about-close" id="aboutClose">×</button>
@@ -664,7 +663,7 @@
     </svg>
     <span id="viewCount">--</span>
   </div>
-  <audio id="bg-music" src="ONEFOUR & Nemzzz - SPINNIN.mp3" preload="auto" autoplay loop></audio>
+  <audio id="bg-music" src="ONEFOUR & Nemzzz - SPINNIN.mp3" preload="auto" loop></audio>
   <script>
     const songs = [
       {
@@ -989,7 +988,7 @@
       const bars = visualizer.children;
       
       function updateVisualizer() {
-        if (!audio.paused) {
+        if (audio && !audio.paused) {
           bars.forEach((bar, index) => {
             const height = Math.random() * 50 + 10;
             bar.style.height = height + 'px';
@@ -999,7 +998,10 @@
         requestAnimationFrame(updateVisualizer);
       }
       
-      updateVisualizer();
+      // Start visualizer after user interaction
+      document.addEventListener('click', () => {
+        updateVisualizer();
+      }, { once: true });
     }
     
     createAudioVisualizer();
