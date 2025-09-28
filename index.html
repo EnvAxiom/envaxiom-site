@@ -770,31 +770,12 @@
     });
 
     const axiomTitle = document.getElementById('axiomTitle');
-    
-    // Create sliding text effect
-    function createSlidingText() {
-      const text = axiomTitle.textContent;
-      axiomTitle.textContent = '';
-      axiomTitle.style.overflow = 'hidden';
-      axiomTitle.style.whiteSpace = 'nowrap';
-      
-      let index = 0;
-      const slideInterval = setInterval(() => {
-        if (index < text.length) {
-          axiomTitle.textContent = text.substring(0, index + 1);
-          index++;
-        } else {
-          // Wait a bit, then restart
-          setTimeout(() => {
-            index = 0;
-            axiomTitle.textContent = '';
-          }, 2000);
-        }
-      }, 150);
-    }
-    
-    // Start the sliding animation
-    createSlidingText();
+    let fadeColors = ['#fff', '#000', '#fff', '#000', '#fff'];
+    let fadeIndex = 0;
+    setInterval(() => {
+      axiomTitle.style.color = fadeColors[fadeIndex];
+      fadeIndex = (fadeIndex + 1) % fadeColors.length;
+    }, 700);
 
     // Viewer count (persistent total views via public API)
     const viewCountEl = document.getElementById('viewCount');
